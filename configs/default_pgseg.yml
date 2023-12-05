@@ -1,0 +1,104 @@
+data:
+  batch_size: 1024
+  pin_memory: true
+  num_workers: 32
+  # Thomas said it should be at least about 5-10x your batch size; beyond that,
+  # the differences become academic.
+  shuffle_buffer: 10000
+  seed: ${train.seed}   #${train.seed}
+  dataset:
+    meta:
+      gcc3m:
+        type: img_txt_pair
+        path: /nvme/zhangfei/Data/gcc3m_new_shards
+        prefix: gcc-train-{00000..00331}.tar
+        length: 2817350
+      gcc12m:
+        type: img_txt_pair
+        path: /nvme/zhangfei/Data/gcc12m_new_shards
+        prefix: gcc-conceptual-12m-{00000..01242}.tar
+        length: 10133780
+      redcap12m:
+        type: img_txt_pair
+        path: /nvme/zhangfei/Data/redcap12_new
+        prefix: redcap12m-{00000..01215}.tar
+        length: 11683537
+      imagenet:
+        type: img_cls_pair
+        path: /mnt/petrelfs/zhangfei/Datafile/imagenet_shards  #/home/ubuntu
+        prefix: imagenet-val-{000000..000049}.tar
+        length: 50000
+    train:
+      - gcc3m
+      - gcc12m
+      - redcap12m
+    val:
+      - imagenet
+
+  img_aug:
+    deit_aug: false
+    img_size: 224
+    img_scale: [0.08, 1.0]
+    interpolation: bilinear
+    color_jitter: 0.4
+    auto_augment: 'rand-m9-mstd0.5-inc1'
+    re_prob: 0.25
+    re_mode: 'pixel'
+    re_count: 1
+  text_aug:
+    max_seq_len: 77
+    multi_label: 0
+    word_type: 'noun'
+
+train:
+  start_epoch: 0
+  epochs: 30
+  warmup_epochs: 10
+  base_lr: 1e-4
+  weight_decay: 0.05
+  warmup_lr: 1e-6
+  min_lr: 1e-5
+  clip_grad: 5.0
+  accumulation_steps: 0
+  amp_opt_level: O1
+  seed: 0
+
+  lr_scheduler:
+    name: cosine
+
+  optimizer:
+    name: adamw
+    eps: 1e-8
+    betas: [0.9, 0.999]
+
+evaluate:
+  eval_only: false
+  eval_freq: 1
+  task:
+    - cls
+    - seg
+  cls:
+    save_best: true
+    template: subset
+  seg:
+    save_best: true
+    cfg: segmentation/configs/_base_/datasets/pascal_voc12.py   #imagenet_s  pascal_voc12 coco
+    template: simple
+    opts: []
+
+checkpoint:
+  auto_resume: true
+  resume: 'checkpoints/group_vit_gcc_redcap_30e-3dd09a76.pth'  #Fine-tune from GroupViT could be fast / or set the pretrained-weight of PGSeg here
+  freq: 1
+  max_kept: -1
+  save_freq: 1
+
+
+model_name: '' # display name in the logger
+output: 'PGSeg' #make an output dir with model name
+tag: default
+print_freq: 10
+seed: 0
+wandb: false
+local_rank: ???
+vis: []
