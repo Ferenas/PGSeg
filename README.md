@@ -6,7 +6,16 @@ introduced in the paper:
 
 [**Uncovering Prototypical Knowledge for Weakly
 Open-Vocabulary Semantic Segmentation, NeurIPS 2023**](https://arxiv.org/abs/2310.19001),
-[*Fei Zhang*](https://scholar.google.com/citations?user=Omrg6UkAAAAJ&hl=zh-CN), et.al. 
+
+[*Fei Zhang*](https://scholar.google.com/citations?user=Omrg6UkAAAAJ&hl=zh-CN), 
+[*Tianfei Zhou*](https://www.tfzhou.com/), 
+*Boyang Li*,
+*Hao He*,
+*Chaofan Ma*,
+*Tianjiao Zhang*,
+[*Jiangchao Yao*](https://sunarker.github.io/),
+[*Ya Zhang*](https://scholar.google.com/citations?user=pbjw9sMAAAAJ&hl=zh-CN&oi=ao),
+[*Yanfeng Wang*](https://scholar.google.com/citations?hl=zh-CN&user=x_sgJskAAAAJ). 
 
 <div align="center">
 <img src="figs/1.png" width="100%">
@@ -27,7 +36,7 @@ Open-Vocabulary Semantic Segmentation, NeurIPS 2023**](https://arxiv.org/abs/231
 
 ## Environmental Setup
 
-[//]: # (>Since the installation of this environment is quite annoying, I provide a conda-packed environment in [here]&#40;&#41;, in case of  some weired bugs due to the **unfit** environment. )
+>Since the installation of this environment is quite annoying, I provide a conda-packed environment in [here](https://drive.google.com/file/d/1msEK83Q7n-S_1gpFq8WAapYTu4vHa6Oc/view?usp=drive_link);, in case of  some weired bugs due to the **uncompatiable** environment. )
  
 * Python 3.7
 * PyTorch 1.8
